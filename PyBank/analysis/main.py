@@ -25,7 +25,7 @@ great_decrease_date=0
 
 # Open the CSV as csvfile:
 
-with open(PyBankcsv, newline="") as csvfile:
+with open(PyBankcsv) as csvfile:
     csvreader = csv.reader(csvfile, delimiter=",")
     csv_header = next(csvreader)
 
@@ -43,22 +43,27 @@ with open(PyBankcsv, newline="") as csvfile:
         # Append each row data under the profit/losses column and add with next row to calculate total profit
         profit_losses.append(row[1])
         #
-    for i in range(len(profit_losses)):
+    for i in range(len(profit_losses)-1):
         if i==0:
-           net_profit= 0
-        else:
-            net_profit= int(profit_losses[i]) - int(profit_losses[i-1])
-            if (net_profit >= greatest_increase_amount):
-                great_increase_date = date[i]
-                greatest_increase_amount = net_profit
-            if (net_profit <= greatest_increase_amount):
-                great_decrease_date = date[i]
-                greatest_decrease_amount = net_profit
-        change_in_profit.append(net_profit)
-        i=i+1
+           change= 0
+        #else:
+        change = float(profit_losses[i+1]) - float(profit_losses[i])
+        change_in_profit.append(change)
 
+    
+    #i=i+1
+    greatest_increase_amount= max(change_in_profit)
+    greatest_decrease_amount= min(change_in_profit)
+   
+  
+    month_greater = change_in_profit.index(int(max(change_in_profit)))
+    great_increase_date = date [(int(month_greater))+1]
+                        
+    month_smaller = change_in_profit.index(int(min(change_in_profit)))
+    great_decrease_date = date [(int(month_smaller))+1]
 
-average_change = round(sum(change_in_profit)/(len(change_in_profit)-1),2)
+#Data type fot decimal numbers should be float rather than integer
+average_change = round((sum((change_in_profit)))/(len(change_in_profit)),2)
 count=len(month)
 
 print("----------------------------------------------------------")
@@ -66,7 +71,7 @@ print("Financial Analysis")
 print("----------------------------------------------------------")
 print("Total Months: " + str(count))
 print("Total Profits: " + "$" + str(net_total))
-print("Average Change: " + "$" + str(int(average_change)))
+print("Average Change: " + "$" + str(FloatingPointError(average_change)))
 print("Greatest Increase in Profits: " + str(great_increase_date) + " ($" + str(greatest_increase_amount) + ")")
 print("Greatest Decrease in Profits: " + str(great_decrease_date) + " ($" + str(greatest_decrease_amount)+ ")")
 print("----------------------------------------------------------")
