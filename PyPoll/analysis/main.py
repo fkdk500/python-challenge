@@ -38,62 +38,34 @@ max_votes = 0
 max_index = 0
 #find percentage of vote for each candidate and the winner
 for i in range(len(candidates_list)):
-    percentage =vote_count[i]/(total_votes)*100
+    percentage =round((vote_count[i]/(total_votes)*100),3)
     percentages.append(percentage)
+    if vote_count[i] > max_votes:
+        max_votes = vote_count[i]
+        max_index = i
+winner = candidates_list[max_index]
+candidate_roster=zip(candidates_list,percentages,vote_count)
 
-candidate_roster=zip(candidates_list,vote_count,percentages)
-
-#print(candidate_roster)
-#print(percentages)
-#first_candidate_vote=0
-#second_cadidate_vote=0
-#third_candidate_vote=0
-    
-#if candidate_name[0]==candidates_list[2]:
-    #first_cadidate_vote=first_candidate_vote+1
-    #vote_count.append(first_cadidate_vote)
-        #found=True
-        # Create a set from the candidatelist to get the unique candidate names
-    #for x in set(candidate_list):
-        #unique_candidate.append(x)
-        # y is the total number of votes per candidate
-        #y = candidate_list.count(x)
-        #vote_count.append(y)
-        # z is the percent of total votes per candidate
-        #z = (y/count)*100
-        #vote_percent.append(z)
-        
-    #winning_vote_count = max(vote_count)
-    #winner = unique_candidate[vote_count.index(winning_vote_count)]
-
-#print(int(total_votes))
-#print(vote_count)
-#print(f'{candidate_roster[candidate_name]}')
-
+print("Election Results")  
 print("-------------------------")
-print("Election Results")   
+print("Total Votes: " + str(total_votes)) 
 print("-------------------------")
-print("Total Votes :" + str(total_votes))    
-print("-------------------------")
-#for i in range(len(candidates_list)):
-#for candidates_list,vote_count,percentages in candidate_roster:
-    #print(f'{candidates_list}  : {percentages}')
-#print(*candidate_roster)
 for a,b,c in candidate_roster:
-    print(*(a,c))
-#print("The winner is: " + winner)
+    print(f'{a}: {b}% ({c})')
+print("-------------------------")
+print("Winner: " + winner)
 print("-------------------------")
 
-# Print to a text file: election_results.txt
-# Output perhaps needs to be rounded to 3 decimal points. Leaving that formatting out for now) 
+# Write to a text file: election summary analysis in text.txt format
+with open('election_results.txt', 'w') as text:
+    text.write("Election Results\n")
+    text.write("-------------------------\n")
+    text.write("Total Vote: " + str(total_votes) + "\n")
+    text.write("-------------------------\n")
+    for i in range(len(candidates_list)):
+        text.write(candidates_list[i] + ": " + str(percentages[i]) +"% (" + str(vote_count[i]) + ")\n")
+    text.write("-------------------------\n")
+    text.write("Winner: " + winner+ "\n")
+    text.write("-------------------------")
 
-#with open('election_results.txt', 'w') as text:
-    #text.write("Election Results\n")
-    #text.write("---------------------------------------\n")
-    #text.write("Total Vote: " + str(count) + "\n")
-    #text.write("---------------------------------------\n")
-    #for i in range(len(set(unique_candidate))):
-      #  text.write(unique_candidate[i] + ": " + str(vote_percent[i]) +"% (" + str(vote_count[i]) + ")\n")
-   # text.write("---------------------------------------\n")
-    #text.write("The winner is: " + winner + "\n")
-    #text.write("---------------------------------------\n")
+ 
