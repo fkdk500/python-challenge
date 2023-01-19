@@ -1,5 +1,12 @@
-# Import modules os and csv
+#--------------
+# Steps
+#---------------
+#1.Import modules os and csv, defining the link for targeted file, Declear variables, open and read the file
+#2.looping through the csv file and grab the decleared variables, create additional for loop to grab remaining decleared variable
+#3.Zip diffrent poll lists to make them immutable
+#4. Printing the required summary anlysis and write them on specific formats and location
 
+# Import os and csv modules
 import os
 import csv
 
@@ -51,9 +58,8 @@ with open(PyBankcsv) as csvfile:
         change_in_profit.append(change)
 
     
-    #i=i+1
-    greatest_increase_amount= max(change_in_profit)
-    greatest_decrease_amount= min(change_in_profit)
+    greatest_increase_amount= int(max(change_in_profit))
+    greatest_decrease_amount= int(min(change_in_profit))
    
   
     month_greater = change_in_profit.index(int(max(change_in_profit)))
@@ -62,29 +68,33 @@ with open(PyBankcsv) as csvfile:
     month_smaller = change_in_profit.index(int(min(change_in_profit)))
     great_decrease_date = date [(int(month_smaller))+1]
 
-#Data type fot decimal numbers should be float rather than integer
+#Data type fot decimal numbers should be FloatingPointError rather than integer
 average_change = round((sum((change_in_profit)))/(len(change_in_profit)),2)
+formated_average_change=round(int(average_change),0)
 count=len(month)
 
-print("----------------------------------------------------------")
+#Print summary of anaysis as per the requirement
+print("'''text")
 print("Financial Analysis")
 print("----------------------------------------------------------")
 print("Total Months: " + str(count))
-print("Total Profits: " + "$" + str(net_total))
+print("Total: " + "$" + str(net_total))
 print("Average Change: " + "$" + str(FloatingPointError(average_change)))
 print("Greatest Increase in Profits: " + str(great_increase_date) + " ($" + str(greatest_increase_amount) + ")")
 print("Greatest Decrease in Profits: " + str(great_decrease_date) + " ($" + str(greatest_decrease_amount)+ ")")
 print("----------------------------------------------------------")
 
+#Write finacial anaysis summary on targeted location
 with open('financial_analysis.txt', 'w') as text:
-    text.write("----------------------------------------------------------\n")
+    text.write("'''text \n")
     text.write("  Financial Analysis"+ "\n")
     text.write("----------------------------------------------------------\n\n")
     text.write("    Total Months: " + str(count) + "\n")
     text.write("    Total Profits: " + "$" + str(net_total) +"\n")
-    text.write("    Average Change: " + '$' + str(int(average_change)) + "\n")
+    text.write("    Average Change: " + '$' + str(formated_average_change) + "\n")
     text.write("    Greatest Increase in Profits: " + str(great_increase_date) + " ($" + str(greatest_increase_amount) + ")\n")
     text.write("    Greatest Decrease in Profits: " + str(great_decrease_date) + " ($" + str(greatest_decrease_amount) + ")\n")
-    text.write("----------------------------------------------------------\n")
+    text.write("'''")
+            
 
 
