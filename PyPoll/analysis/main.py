@@ -71,14 +71,14 @@ print("-------------------------")
 with open('election_results.txt', 'w') as text:
     text.write("'''text\n")
     text.write("Election Results\n")
-    text.write("-------------------------\n")
+    text.write("-----------------------\n")
     text.write("Total Vote: " + str(total_votes) + "\n")
-    text.write("-------------------------\n")
+    text.write("-----------------------\n")
     for i in range(len(candidates_list)):
         text.write(candidates_list[i] + ": " + str(percentages[i]) +"% (" + str(vote_count[i]) + ")\n")
-    text.write("-------------------------\n")
+    text.write("-----------------------\n")
     text.write("Winner: " + winner+ "\n")
-    text.write("-------------------------\n")
+    text.write("-----------------------\n")
     text.write("'''")
 
  
